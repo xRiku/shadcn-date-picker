@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card"
-import { ReactNode } from "react"
+import { type ReactNode } from "react"
 
 export default function DemoDisplay({ children }: { children: ReactNode }) {
   return (

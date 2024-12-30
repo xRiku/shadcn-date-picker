@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/tooltip"
 import { siteConfig } from "@/config/site"
 import { Building, Link, MapPin } from "lucide-react"
-import React, { ReactElement } from "react"
+import React, { type ReactElement } from "react"
 
 export default function Footer() {
   return (
