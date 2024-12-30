@@ -36,8 +36,9 @@ export default function DatePicker() {
           selected={date}
           onSelect={setDate}
           autoFocus
-          startMonth={new Date(1999, 11)}
-          endMonth={new Date(2025, 2)}
+          showOutsideDays={false}
+          startMonth={new Date(2024, 8)}
+          endMonth={new Date(2025, 10)}
         />
       </PopoverContent>
     </Popover>

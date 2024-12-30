@@ -153,7 +153,7 @@ function Calendar({
     "text-muted-foreground opacity-50",
     props.disabledClassName
   )
-  const _hiddenClassName = cn("invisible hidden", props.hiddenClassName)
+  const _hiddenClassName = cn("invisible flex-1", props.hiddenClassName)
 
   return (
     <DayPicker
@@ -336,7 +336,7 @@ function Calendar({
                   (_, i) => {
                     const isBefore =
                       differenceInCalendarDays(
-                        new Date(displayYears.from + i, 12, 31),
+                        new Date(displayYears.from + i, 11, 31),
                         startMonth!
                       ) < 0
 
