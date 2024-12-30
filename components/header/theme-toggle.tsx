@@ -1,38 +1,26 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Moon, Sun } from "lucide-react"
+import { MoonIcon, SunIcon } from "lucide-react"
 import { useTheme } from "next-themes"
+import * as React from "react"
 
-export function ThemeToggle({ className }: { className?: string }) {
-  const { setTheme } = useTheme()
+export function ModeSwitcher() {
+  const { setTheme, resolvedTheme } = useTheme()
+
+  const toggleTheme = React.useCallback(() => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark")
+  }, [resolvedTheme, setTheme])
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className={className}>
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 stroke-[1.5] transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 stroke-[1.5] transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button
+      variant="ghost"
+      className="group/toggle h-8 w-8 stroke-[1.5] px-0"
+      onClick={toggleTheme}
+    >
+      <SunIcon className="hidden [html.dark_&]:block" />
+      <MoonIcon className="hidden [html.light_&]:block" />
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   )
 }

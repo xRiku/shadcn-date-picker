@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/providers/theme-provider"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Metadata, Viewport } from "next"
+import { type Metadata, type Viewport } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {

@@ -7,25 +7,29 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { cn } from "@/lib/utils"
 import { motion, useMotionValue, useTransform } from "framer-motion"
 import { useState } from "react"
 import { toast } from "sonner"
 
 export default function CopyCode({
   code,
-  path = "app/_components/date-picker/date-picker.tsx",
+  path = "features/date-picker/date-picker.tsx",
+  copyTooltip = "Copy Code",
   className,
-}:
+}: (
   | {
       code?: string
       path?: undefined
-      className?: string
     }
   | {
       code?: undefined
       path?: string
-      className?: string
-    }) {
+    }
+) & {
+  copyTooltip?: string
+  className?: string
+}) {
   const [isClicked, setIsClicked] = useState(false)
   const [pending, setPending] = useState(false)
 
@@ -41,6 +45,19 @@ export default function CopyCode({
       transition: { delay: 0.2, duration: 0.3 },
     },
     unclicked: { opacity: 0, pathLength: 0 },
+  }
+
+  const loadingCircleVariants = {
+    idle: { rotate: 0, opacity: 0, transition: { duration: 0.3 } },
+    pending: {
+      rotate: 360,
+      opacity: 1,
+      transition: {
+        repeat: Infinity,
+        ease: "linear",
+        duration: 1,
+      },
+    },
   }
 
   const checkmarkVariants = {
@@ -69,6 +86,7 @@ export default function CopyCode({
 
       const response = await fetch(`/api/github-req?path=${path}`, {
         method: "GET",
+        cache: "force-cache",
       })
       if (!response.ok) {
         throw new Error(response.statusText ?? "Failed to fetch code")
@@ -86,6 +104,8 @@ export default function CopyCode({
     } catch (err) {
       const error = err instanceof Error ? err.message : undefined
       toast.error("Failed to copy code", {
+        dismissible: true,
+        closeButton: true,
         description: error || "Unknown error",
       })
       console.error(error)
@@ -97,11 +117,14 @@ export default function CopyCode({
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>
           <Button
-            variant="outline"
+            variant="ghost"
             aria-label="Copy to clipboard"
             onClick={handleClickCopy}
             disabled={pending}
-            className={className}
+            className={cn(
+              "z-10 h-6 w-6 rounded-[0.5rem] text-zinc-50 hover:bg-zinc-700 hover:text-zinc-50 [&_svg]:h-3 [&_svg]:w-3",
+              className
+            )}
             size="icon"
           >
             <svg
@@ -112,12 +135,24 @@ export default function CopyCode({
               <g fill="none" fillRule="evenodd">
                 <motion.g
                   initial={false}
-                  animate={isClicked ? "clicked" : "unclicked"}
+                  animate={isClicked || pending ? "clicked" : "unclicked"}
                   variants={clipboardVariants}
-                  className="stroke-muted-foreground"
+                  className="stroke-current"
                 >
                   <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
                   <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                </motion.g>
+                <motion.g
+                  initial={false}
+                  animate={pending ? "pending" : "idle"}
+                  variants={loadingCircleVariants}
+                  className="stroke-current"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
                 </motion.g>
                 <g className="stroke-green-500">
                   <motion.path
@@ -143,7 +178,7 @@ export default function CopyCode({
           </Button>
         </TooltipTrigger>
         <TooltipContent>
-          <span>Copy Code</span>
+          <span>{copyTooltip}</span>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

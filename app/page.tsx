@@ -1,5 +1,8 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Spinner } from "@/components/ui/spinner"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Timeline,
   TimelineContent,
@@ -9,16 +12,19 @@ import {
   TimelineLine,
 } from "@/components/ui/timeline"
 import { siteConfig } from "@/config/site"
+import DatePickerCode from "@/features/code-blocks/basic-date-picker"
+import CalendarCode from "@/features/code-blocks/calendar-code"
+import CopyCode from "@/features/code-blocks/copy-code"
+import RangePickerCode from "@/features/code-blocks/range-picker"
+import DatePicker, { DateRangePicker } from "@/features/date-picker"
 import { Coffee, Info, Package } from "lucide-react"
 import Link from "next/link"
-import CalendarCode from "./_components/code-blocks/calendar-code"
-import CopyCode from "./_components/code-blocks/copy-code"
-import DatePicker, { DateRangePicker } from "./_components/date-picker"
+import { Suspense } from "react"
 import DemoDisplay from "./_components/demo-display"
 
 export default function Home() {
   return (
-    <main className="container relative flex max-w-[768px] flex-1 flex-col gap-10 py-10 typography-h2:mt-6">
+    <main className="typography-h2:mt-6 container relative flex max-w-[768px] flex-1 flex-col gap-10 py-10">
       <section className="prose">
         <h2>Introduction</h2>
         <DemoDisplay>
@@ -32,6 +38,13 @@ export default function Home() {
             react-day-picker
           </code>{" "}
           library, which provides a wide range of customization options.
+          <br />
+          Furthermore, it allows usage with{" "}
+          <code className="whitespace-pre rounded bg-slate-200/50 p-1 text-xs dark:bg-slate-500/20">
+            react-day-picker
+          </code>{" "}
+          version 9, which is not compatible with the current shadcn date picker
+          component.
           <br />
           In the demo above, notice that you can click on the moth label at the
           top to change the view to years.
@@ -48,7 +61,7 @@ export default function Home() {
                 Install the package by running the following command in your
                 terminal:{" "}
                 <code className="whitespace-pre rounded bg-slate-200/50 p-1 text-xs dark:bg-slate-500/20">
-                  pnpm add react-day-picker@9.0.4
+                  pnpm add react-day-picker@9.4.3
                 </code>
                 <br />
               </p>
@@ -103,7 +116,7 @@ export default function Home() {
                 </Link>
                 .<br /> Once you have a working project with shadcn, create a{" "}
                 <code className="whitespace-pre rounded bg-slate-200/50 p-1 text-xs dark:bg-slate-500/20">
-                  /components/ui/calendar.tsx
+                  components/ui/calendar.tsx
                 </code>{" "}
                 file and paste the following code:
               </p>
@@ -116,17 +129,40 @@ export default function Home() {
           <TimelineDot />
           <TimelineLine />
           <TimelineContent className="mr-0">
-            <div className="prose mr-0 w-full max-w-full">
+            <div className="prose mr-0 w-full max-w-full prose-pre:mt-0">
               Now create a new date-picker file and paste the following code,
               depending on your use case.
               <section>
                 <div className="flex items-center justify-between gap-x-2">
                   <h2>Basic Date Picker</h2>
-                  <CopyCode />
+                  <CopyCode
+                    className="relative top-2 text-foreground hover:border hover:bg-transparent hover:text-foreground"
+                    copyTooltip="Copy Demo Code"
+                  />
                 </div>
-                <DemoDisplay>
-                  <DatePicker />
-                </DemoDisplay>
+                <Tabs defaultValue="preview">
+                  <TabsList className="mb-2 w-full [&>*]:flex-1">
+                    <TabsTrigger value="preview">Preview</TabsTrigger>
+                    <TabsTrigger value="code">Code</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="preview">
+                    <DemoDisplay>
+                      <DatePicker />
+                    </DemoDisplay>
+                  </TabsContent>
+                  <TabsContent value="code">
+                    <Suspense
+                      fallback={
+                        <Skeleton className="relative flex h-64 w-full items-center justify-center gap-2 text-center font-medium">
+                          <Spinner />
+                          loading code...
+                        </Skeleton>
+                      }
+                    >
+                      <DatePickerCode />
+                    </Suspense>
+                  </TabsContent>
+                </Tabs>
                 <p>
                   This is the basic date picker component that allows users to
                   select a single date. The main advantage of this component
@@ -138,11 +174,35 @@ export default function Home() {
               <section>
                 <div className="flex items-center justify-between gap-x-2">
                   <h2>Date Range Picker</h2>
-                  <CopyCode path="app/_components/date-picker/date-range-picker.tsx" />
+                  <CopyCode
+                    className="relative top-2 text-foreground hover:border hover:bg-transparent hover:text-foreground"
+                    copyTooltip="Copy Demo Code"
+                    path="features/date-picker/date-range-picker.tsx"
+                  />
                 </div>
-                <DemoDisplay>
-                  <DateRangePicker />
-                </DemoDisplay>
+                <Tabs defaultValue="preview">
+                  <TabsList className="mb-2 w-full [&>*]:flex-1">
+                    <TabsTrigger value="preview">Preview</TabsTrigger>
+                    <TabsTrigger value="code">Code</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="preview">
+                    <DemoDisplay>
+                      <DateRangePicker />
+                    </DemoDisplay>
+                  </TabsContent>
+                  <TabsContent value="code">
+                    <Suspense
+                      fallback={
+                        <Skeleton className="relative flex h-64 w-full items-center justify-center gap-2 text-center font-medium">
+                          <Spinner />
+                          loading code...
+                        </Skeleton>
+                      }
+                    >
+                      <RangePickerCode />
+                    </Suspense>
+                  </TabsContent>
+                </Tabs>
                 <p>
                   This is the date range picker component that allows users to
                   select a range of dates. It also allows users to navigate

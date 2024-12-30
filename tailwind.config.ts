@@ -6,6 +6,7 @@ const config = {
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
+    "./features/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
@@ -71,18 +72,18 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        spinner: { "0%": { opacity: "1" }, to: { opacity: "0.15" } },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        spinner: "spinner 1.2s linear infinite",
       },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
-    require("@tailwindcss/typography")({
-      className: "typography",
-    }),
+    require("@tailwindcss/typography"),
     require("@tailwindcss/container-queries"),
   ],
 } satisfies Config

@@ -1,7 +1,6 @@
+import { cn } from "@/lib/utils"
 import { ClassValue } from "clsx"
 import Link, { LinkProps } from "next/link"
-
-import { cn } from "@/lib/utils"
 
 export function InlineLink({
   href,

@@ -71,7 +71,7 @@
   }
 
   .prose {
-    @apply typography typography-blue dark:typography-invert;
+    @apply prose-blue dark:prose-invert;
   }
 }
 

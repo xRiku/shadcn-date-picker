@@ -1,11 +1,10 @@
 "use client"
-
 import { cn } from "@/lib/utils"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import React from "react"
 import { buttonVariants } from "../ui/button"
-import { ThemeToggle } from "./theme-toggle"
+import { ModeSwitcher } from "./theme-toggle"
 
 function OverlayMenu({
   isOpen,
@@ -28,7 +27,7 @@ function OverlayMenu({
       onClick={toggleOpen}
     >
       <nav className="m-auto flex w-fit flex-col items-center justify-center gap-4">
-        <ThemeToggle />
+        <ModeSwitcher />
         <Link
           href="/about-me"
           passHref

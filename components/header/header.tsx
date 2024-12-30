@@ -1,7 +1,7 @@
 "use client"
 
 import { MainTitle } from "@/components/header/main-title"
-import { ThemeToggle } from "@/components/header/theme-toggle"
+import { ModeSwitcher } from "@/components/header/theme-toggle"
 import { buttonVariants } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
@@ -58,7 +58,7 @@ export function Header() {
         <div className="flex items-center justify-end gap-x-4">
           <div className="hidden shrink-0 items-center gap-x-1 md:flex">
             <GithubLink />
-            <ThemeToggle />
+            <ModeSwitcher />
           </div>
         </div>
         <HamburgerMenu />

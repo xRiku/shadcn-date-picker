@@ -1,8 +1,7 @@
-import { VariantProps, cva } from "class-variance-authority"
+import { cn } from "@/lib/utils"
+import { type VariantProps, cva } from "class-variance-authority"
 import { Check, Circle, X } from "lucide-react"
 import React from "react"
-
-import { cn } from "@/lib/utils"
 
 const timelineVariants = cva("grid", {
   variants: {
@@ -185,7 +184,7 @@ const TimelineLine = React.forwardRef<HTMLHRElement, TimelineLineProps>(
         role="separator"
         aria-orientation="vertical"
         className={cn(
-          "col-start-2 col-end-3 row-start-2 row-end-2 mx-auto flex h-full min-h-16 w-0.5 justify-center rounded-full",
+          "col-start-2 col-end-3 row-start-2 row-end-2 mx-auto flex h-full min-h-16 w-0.5 justify-center rounded-full border-none",
           done ? "bg-primary" : "bg-muted",
           className
         )}
