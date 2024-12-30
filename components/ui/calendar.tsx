@@ -20,6 +20,12 @@ export type CalendarProps = DayPickerProps & {
    */
   yearRange?: number
 
+  /**
+   * Wether to show the year switcher in the caption.
+   * @default true
+   */
+  showYearSwitcher?: boolean
+
   monthsClassName?: string
   monthCaptionClassName?: string
   weekdaysClassName?: string
@@ -53,6 +59,7 @@ export type CalendarProps = DayPickerProps & {
 function Calendar({
   className,
   showOutsideDays = true,
+  showYearSwitcher = true,
   yearRange = 12,
   numberOfMonths,
   ...props
@@ -309,20 +316,23 @@ function Calendar({
             </nav>
           )
         },
-        CaptionLabel: ({ children }) => (
-          <Button
-            className="h-7 w-full truncate text-sm font-medium"
-            variant="ghost"
-            size="sm"
-            onClick={() =>
-              setNavView((prev) => (prev === "days" ? "years" : "days"))
-            }
-          >
-            {navView === "days"
-              ? children
-              : displayYears.from + " - " + displayYears.to}
-          </Button>
-        ),
+        CaptionLabel: ({ children, ...props }) => {
+          if (!showYearSwitcher) return <span {...props}>{children}</span>
+          return (
+            <Button
+              className="h-7 w-full truncate text-sm font-medium"
+              variant="ghost"
+              size="sm"
+              onClick={() =>
+                setNavView((prev) => (prev === "days" ? "years" : "days"))
+              }
+            >
+              {navView === "days"
+                ? children
+                : displayYears.from + " - " + displayYears.to}
+            </Button>
+          )
+        },
         MonthGrid: ({ className, children, ...props }) => {
           const { goToMonth } = useDayPicker()
           if (navView === "years") {

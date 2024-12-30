@@ -24,9 +24,8 @@ import DemoDisplay from "./_components/demo-display"
 
 export default function Home() {
   return (
-    <main className="typography-h2:mt-6 container relative flex max-w-[768px] flex-1 flex-col gap-10 py-10">
-      <section className="prose">
-        <h2>Introduction</h2>
+    <main className="typography-h2:mt-6 container relative flex max-w-[768px] flex-1 flex-col gap-10 py-4">
+      <section className="prose max-w-full">
         <DemoDisplay>
           <DatePicker />
         </DemoDisplay>
