@@ -92,7 +92,7 @@ function Calendar({
     "w-8 text-sm font-normal text-muted-foreground",
     props.weekdayClassName
   )
-  const _monthClassName = cn("w-full overflow-x-hidden", props.monthClassName)
+  const _monthClassName = cn("w-full", props.monthClassName)
   const _captionClassName = cn(
     "relative flex items-center justify-center pt-1",
     props.captionClassName
