@@ -4,11 +4,10 @@ import { MainTitle } from "@/components/header/main-title"
 import { ModeSwitcher } from "@/components/header/theme-toggle"
 import { buttonVariants } from "@/components/ui/button"
 import { siteConfig } from "@/config/site"
+import { useScrollY } from "@/hooks/use-scroll-y"
 import { cn } from "@/lib/utils"
 import { Github } from "lucide-react"
 import Link from "next/link"
-import { useEffect, useState } from "react"
-
 import HamburgerMenu from "./hamburger-menu"
 
 function GithubLink() {
@@ -27,26 +26,10 @@ function GithubLink() {
   )
 }
 
-const SCROLL_TRIGGER = 50
+const SCROLL_TRIGGER = 1
 
 export function Header() {
-  const [scrollBorder, setScrollBorder] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > SCROLL_TRIGGER) {
-        setScrollBorder(true)
-      } else {
-        setScrollBorder(false)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  })
+  const scrollY = useScrollY()
   return (
     <header
       className={cn(
@@ -66,7 +49,7 @@ export function Header() {
       <div
         className={cn(
           "w-full border-b transition-all duration-500 ease-in-out motion-reduce:duration-0",
-          scrollBorder ? "opacity-100" : "opacity-0"
+          scrollY >= SCROLL_TRIGGER ? "opacity-100" : "opacity-0"
         )}
       />
     </header>
