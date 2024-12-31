@@ -3,11 +3,9 @@ import { cn } from "@/lib/utils"
 export default function PersonalIcon({ className }: { className?: string }) {
   return (
     <svg
-      width="379"
-      height="188"
       viewBox="0 0 379 188"
       className={cn(
-        "size-12 fill-[hsl(0,0%,10%)] dark:fill-foreground",
+        "size-10 fill-[hsl(0,0%,10%)] dark:fill-foreground",
         className
       )}
       fill="none"
