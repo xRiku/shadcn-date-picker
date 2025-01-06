@@ -198,7 +198,7 @@ function Calendar({
           const Icon = orientation === "left" ? ChevronLeft : ChevronRight
           return <Icon className="h-4 w-4" />
         },
-        Nav: ({ className, children, ...props }) => {
+        Nav: ({ className }) => {
           const { nextMonth, previousMonth, goToMonth } = useDayPicker()
 
           const isPreviousDisabled = (() => {
@@ -277,7 +277,7 @@ function Calendar({
             onNextClick?.(nextMonth)
           }, [goToMonth, nextMonth])
           return (
-            <nav className={cn("flex items-center", className)} {...props}>
+            <nav className={cn("flex items-center", className)}>
               <Button
                 variant="outline"
                 className="absolute left-0 h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100"
@@ -334,7 +334,7 @@ function Calendar({
           )
         },
         MonthGrid: ({ className, children, ...props }) => {
-          const { goToMonth } = useDayPicker()
+          const { goToMonth, selected } = useDayPicker()
           if (navView === "years") {
             return (
               <div
@@ -371,7 +371,7 @@ function Calendar({
                           goToMonth(
                             new Date(
                               displayYears.from + i,
-                              new Date().getMonth()
+                              (selected as Date | undefined)?.getMonth() ?? 0
                             )
                           )
                         }}
