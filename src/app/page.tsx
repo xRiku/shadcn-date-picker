@@ -12,15 +12,15 @@ import {
   TimelineLine,
 } from "@/components/ui/timeline"
 import { siteConfig } from "@/config/site"
-import DatePickerCode from "@/features/code-blocks/basic-date-picker"
-import CalendarCode from "@/features/code-blocks/calendar-code"
-import CopyCode from "@/features/code-blocks/copy-code"
-import RangePickerCode from "@/features/code-blocks/range-picker"
+import DatePickerCode from "@/features/code-blocks/components/basic-date-picker"
+import CalendarCode from "@/features/code-blocks/components/calendar-code"
+import CopyCode from "@/features/code-blocks/components/copy-code"
+import DemoDisplay from "@/features/code-blocks/components/demo-display"
+import RangePickerCode from "@/features/code-blocks/components/range-picker"
 import DatePicker, { DateRangePicker } from "@/features/date-picker"
 import { Coffee, Info, Package } from "lucide-react"
 import Link from "next/link"
 import { Suspense } from "react"
-import DemoDisplay from "./_components/demo-display"
 
 export default function Home() {
   return (

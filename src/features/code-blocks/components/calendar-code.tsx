@@ -1,4 +1,4 @@
-import { fetchRepoContent } from "@/app/api/github-req/fetch-repo-content"
+import { fetchRepoContent } from "../lib/fetch-repo-content"
 import CodeBlockWrapper from "./code-block-wrapper"
 import CopyCode from "./copy-code"
 import SyntaxHighlighter from "./syntax-highlighter"
