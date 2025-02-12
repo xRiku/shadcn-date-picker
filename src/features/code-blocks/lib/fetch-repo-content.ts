@@ -1,5 +1,4 @@
 import { Octokit } from "octokit"
-import "server-only"
 
 export async function fetchRepoContent(path: string | null) {
   if (!path)
